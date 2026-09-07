@@ -1,11 +1,3 @@
-// server.js
-// Backend do chatbot de jogadores de futebol.
-// Fluxo: usuário digita um nome -> buscamos o jogador (pegamos o ID) ->
-// buscamos os detalhes completos (estatísticas) com esse ID ->
-// mandamos tudo pro Gemini junto com a pergunta -> devolvemos a resposta.
-// A foto do jogador é servida através do nosso próprio servidor (rota /api/player-image/:id),
-// assim nossa chave da RapidAPI nunca fica exposta no navegador do usuário.
-
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -31,8 +23,6 @@ function headersFootball() {
   };
 }
 
-// --- 1. Busca o jogador pelo nome e pega o ID -----------------------------
-
 async function buscarIdDoJogador(nome) {
   const url = `https://${FOOTBALL_API_HOST}/football-players-search?search=${encodeURIComponent(nome)}`;
   const resposta = await fetch(url, { headers: headersFootball() });
@@ -56,8 +46,6 @@ async function buscarIdDoJogador(nome) {
   };
 }
 
-// --- 2. Busca os detalhes/estatísticas completas usando o ID ---------------
-
 async function buscarDetalhesDoJogador(id) {
   const url = `https://${FOOTBALL_API_HOST}/football-get-player-detail?playerid=${id}`;
   const resposta = await fetch(url, { headers: headersFootball() });
@@ -68,8 +56,6 @@ async function buscarDetalhesDoJogador(id) {
 
   return resposta.json();
 }
-
-// --- 3. Manda os dados + a pergunta para o Gemini ---------------------------
 
 async function perguntarAoGemini(pergunta, dadosDoJogador, historico = []) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
@@ -121,8 +107,6 @@ Responda em português, de forma organizada e fácil de ler.
   return texto;
 }
 
-// --- Rota principal do chat --------------------------------------------
-
 app.post('/api/chat', async (req, res) => {
   const { jogador, pergunta, historico } = req.body;
 
@@ -135,14 +119,7 @@ app.post('/api/chat', async (req, res) => {
   try {
     const { id, nome, time } = await buscarIdDoJogador(jogador);
     const detalhes = await buscarDetalhesDoJogador(id);
-
     const dadosCompletos = { nomeEncontrado: nome, time, detalhes };
-
-    console.log('--- Resumo do que a API de detalhes trouxe ---');
-    console.log('Chaves em detalhes.response:', Object.keys(detalhes?.response ?? {}));
-    console.log('Títulos encontrados em "detail":', (detalhes?.response?.detail ?? []).map((d) => d.title));
-    console.log('------------------------------------------------');
-
     const respostaFinal = await perguntarAoGemini(pergunta, dadosCompletos, historico);
     res.json({ resposta: respostaFinal, jogadorId: id });
   } catch (erro) {
@@ -151,9 +128,6 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// --- Rota que repassa a foto do jogador (evita expor a chave no navegador) ---
-
-// Procura, em qualquer lugar de um objeto, uma string que pareça uma URL de imagem.
 function encontrarUrlDeImagem(objeto, profundidade = 0) {
   if (!objeto || typeof objeto !== 'object' || profundidade > 5) return null;
 
@@ -179,21 +153,16 @@ app.get('/api/player-image/:id', async (req, res) => {
 
     const tipoConteudo = resposta.headers.get('content-type') || '';
 
-    // Caso 1: a API já devolve a imagem diretamente.
     if (tipoConteudo.startsWith('image/')) {
       res.set('Content-Type', tipoConteudo);
       const buffer = Buffer.from(await resposta.arrayBuffer());
       return res.send(buffer);
     }
 
-    // Caso 2: a API devolve um JSON com o link da imagem dentro.
     const dadosJson = await resposta.json();
     const urlDaImagem = encontrarUrlDeImagem(dadosJson);
 
     if (!urlDaImagem) {
-      console.log('--- JSON da foto sem URL reconhecida ---');
-      console.log(JSON.stringify(dadosJson, null, 2).slice(0, 1000));
-      console.log('------------------------------------------');
       return res.status(404).end();
     }
 
@@ -210,8 +179,6 @@ app.get('/api/player-image/:id', async (req, res) => {
     res.status(500).end();
   }
 });
-
-// --- Inicializa o servidor ----------------------------------------------
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
