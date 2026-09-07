@@ -52,11 +52,11 @@ Depois, abra no navegador: **http://localhost:3000**
 
 ```
 chatbot-futebol/
-├── server.js          # Backend (Express) — liga as duas APIs
+├── server.js          
 ├── package.json
-├── .env.example        # Modelo do arquivo de chaves (copie para .env)
+├── .env.example        
 ├── public/
-│   ├── index.html      # Estrutura da página
-│   ├── style.css        # Visual (tema campo de futebol)
-│   └── script.js        # Lógica do formulário no navegador
+│   ├── index.html      
+│   ├── style.css        
+│   └── script.js        
 ```
