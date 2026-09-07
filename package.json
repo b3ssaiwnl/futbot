@@ -1,0 +1,16 @@
+{
+  "name": "chatbot-jogadores-futebol",
+  "version": "1.0.0",
+  "description": "Chatbot que responde sobre jogadores de futebol usando dados reais de uma API esportiva + IA (Gemini) para gerar biografia e explicações.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5",
+    "cors": "^2.8.5"
+  }
+}

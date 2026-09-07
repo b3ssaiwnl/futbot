@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escalação — Chatbot de Jogadores</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="campo">
+    <header class="topo">
+      <span class="numero">10</span>
+      <div>
+        <h1>Escalação</h1>
+        <p class="subtitulo">Pergunte sobre qualquer jogador — estatísticas reais + biografia</p>
+      </div>
+    </header>
+
+    <main class="painel">
+      <label class="campo-label campo-jogador">
+        Jogador
+        <input type="text" id="jogador" placeholder="ex: Vinícius Júnior" />
+      </label>
+
+      <div class="corpo">
+        <img id="fotoJogador" class="foto-jogador" hidden alt="Foto do jogador" />
+
+        <div class="area-chat">
+          <div id="conversa" class="conversa"></div>
+
+          <form id="formulario" class="form-consulta">
+            <input type="text" id="pergunta" placeholder="ex: quantos gols ele marcou na Champions?" required />
+            <button type="submit" id="botaoEnviar">Chutar</button>
+          </form>
+
+          <p id="statusMensagem" class="status" hidden></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --grama-escura: #0d3b23;
+  --grama-clara: #135c34;
+  --linha: rgba(255, 255, 255, 0.35);
+  --amarelo-cartao: #f2c744;
+  --branco: #fdfdf7;
+  --texto-suave: #cfe8d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: var(--grama-escura);
+  color: var(--branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.campo {
+  width: 100%;
+  max-width: 640px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--grama-clara) 0px,
+    var(--grama-clara) 48px,
+    var(--grama-escura) 48px,
+    var(--grama-escura) 96px
+  );
+  border: 3px solid var(--linha);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 28px 20px;
+  border-bottom: 2px dashed var(--linha);
+}
+
+.numero {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--amarelo-cartao);
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 26px;
+  margin: 0 0 4px;
+  letter-spacing: 0.5px;
+}
+
+.subtitulo {
+  margin: 0;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+.painel {
+  padding: 24px 28px 32px;
+}
+
+.campo-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--texto-suave);
+  font-weight: 500;
+}
+
+.campo-jogador {
+  margin-bottom: 16px;
+}
+
+.corpo {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.foto-jogador {
+  flex: 0 0 auto;
+  width: 132px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid var(--linha);
+  background: rgba(253, 253, 247, 0.08);
+}
+
+.area-chat {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversa {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding-right: 4px;
+}
+
+.mensagem {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.mensagem-usuario {
+  align-self: flex-end;
+  background: var(--amarelo-cartao);
+  color: #16281d;
+  border-bottom-right-radius: 2px;
+}
+
+.mensagem-assistente {
+  align-self: flex-start;
+  background: rgba(13, 30, 20, 0.6);
+  border: 1px solid var(--linha);
+  color: var(--branco);
+  border-bottom-left-radius: 2px;
+}
+
+.form-consulta {
+  display: flex;
+  gap: 10px;
+}
+
+.form-consulta input {
+  flex: 1;
+}
+
+.form-consulta button {
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+input[type='text'] {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(253, 253, 247, 0.94);
+  color: #16281d;
+}
+
+input[type='text']:focus {
+  outline: 3px solid var(--amarelo-cartao);
+  outline-offset: 1px;
+}
+
+button {
+  margin-top: 4px;
+  padding: 13px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #16281d;
+  background: var(--amarelo-cartao);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.resultado {
+  margin-top: 22px;
+  background: rgba(13, 30, 20, 0.55);
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.resultado-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amarelo-cartao);
+  text-transform: none;
+  margin-bottom: 10px;
+}
+
+.bolinha {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amarelo-cartao);
+  display: inline-block;
+}
+
+.resultado-texto {
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--branco);
+}
+
+.status {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.status.erro {
+  color: #ff9d9d;
+}
+
+@media (max-width: 480px) {
+  .topo {
+    padding: 22px 20px 16px;
+  }
+  .painel {
+    padding: 18px 20px 26px;
+  }
+  .corpo {
+    flex-direction: column;
+  }
+  .foto-jogador {
+    width: 110px;
+    align-self: center;
+  }
+}
